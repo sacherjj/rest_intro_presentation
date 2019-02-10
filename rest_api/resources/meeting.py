@@ -33,13 +33,13 @@ class MeetingV1(Resource):
     # If we do not return a response code, 200 is defaulted.  I have typed the methods with
     # Tuple[dict, int] as I will explicitly return codes for every return path.
     #
-    # flask_restful expects a dict as return type (or first argument of tuple if return code is specified)
-    # and automatically does the JSON conversions.
+    # flask_restful expects a dict or dict, code as return type
+    # and automatically does the dict to JSON conversions.
     #
     # Response Codes used:
     # 200 - OK
     # 201 - Created
-    # 202 - Accepted (Might be used if your API queues up an action, but doesn't complete immediately
+    # 202 - Accepted (Might be used if your API queues up an action for later completion)
     # 400 - Bad Request
     # 404 - Not Found
 
@@ -71,7 +71,7 @@ class MeetingV1(Resource):
         # to offer the named arguments to the model creation.
         mm = MeetingModel(**data)
         mm.save_to_db()
-        return {'message': 'Meeting created'}, 200
+        return {'message': 'Meeting created'}, 201
 
     def put(self, meeting_date: Optional[str] = None) -> Tuple[dict, int]:
         if meeting_date is None:
@@ -84,15 +84,16 @@ class MeetingV1(Resource):
 
         data = MeetingV1.parser.parse_args()
 
-        # We don't allow modifying the primary key of a meeting, so expect it to match the URI key.
+        # We don't allow modifying the primary key, so expect it to match the URI key.
         if meeting_date != data['meeting_date']:
-            return {'meeting': 'meeting_date is not allowed to be updated.'}, 400
+            return {'message': 'meeting_date is not allowed to be updated.'}, 400
 
-        # Again, since properties and resource fields are the same, we can setattr for each field.
+        # Since properties and resource fields are the same, we can setattr for each field.
         # This would still be possible if you needed a mapping for the value names to translate.
         for key in data:
             setattr(mm, key, data[key])
         mm.save_to_db()
+        return {'message': 'Meeting updated.'}, 200
 
     def delete(self, meeting_date: Optional[str] = None) -> Tuple[dict, int]:
         if meeting_date is None:
@@ -103,4 +104,4 @@ class MeetingV1(Resource):
         if not mm:
             return {'message': 'Meeting not found.'}, 404
         mm.delete_from_db()
-        return {'message': f'Meeting {meeting_date} deleted'}, 200
+        return {'message': 'Meeting deleted'}, 200
