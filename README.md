@@ -16,13 +16,13 @@ Our REST API is allowing maintenance of an IndyPy Meeting resource.
 
 Code for the REST API exists in the [rest_api](rest_api) directory.
 
-[models](models) holds the SQLAlchemy model for the meeting in the [meeting.py](models/meeting.py).
+[models](rest_api/models) holds the SQLAlchemy model for the meeting in [meeting.py](rest_api/models/meeting.py).
 
-[resources](resources) holds the flask_restful Resource that handles the HTTP Verbs for the API in the [meeting.py](resources/meeting.py)
+[resources](rest_api/resources) holds the flask_restful Resource that handles the HTTP Verbs for the API in [meeting.py](rest_api/resources/meeting.py)
 
-[db.py](db.py) is the simple db object for SQLAlchemy.
+[db.py](rest_api/db.py) is the simple db object for SQLAlchemy.
 
-[rest_app.py](rest_app.py) creates the Flask app for the API.
+[rest_app.py](rest_api/rest_app.py) creates the Flask app for the API.
 
 [run_app.py](run_app.py) will serve the Flask REST API using the built in development server.
 
