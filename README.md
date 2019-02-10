@@ -2,13 +2,17 @@
 
 This presentation was put together for the 2019-02-12 IndyPy meeting Python Beginner's Jam.  
 
-[Intro to REST with Python.pdf](Intro to REST with Python.pdf) contains the presentation slides for the first portion of the talk.
+## Slides
+
+[Intro_to_REST_with_Python.pdf](Intro_to_REST_with_Python.pdf) contains the presentation slides for the first portion of the talk.
 
 The code demonstration walks through the code in this repo.  
 
 I will link the YouTube video here when it is released.
 
-Our REST API is allowing maintenace of an IndyPy Meeting resource.
+## Source Code
+
+Our REST API is allowing maintenance of an IndyPy Meeting resource.
 
 Code for the REST API exists in the `rest_api` directory.
 
@@ -23,3 +27,10 @@ Code for the REST API exists in the `rest_api` directory.
 [run_app.py](run_app.py) will serve the Flask REST API using the built in development server.
 
 [access_api.py](access_api.py) is an client implementation calling the REST API with Requests.
+
+## Setup and Requirements
+
+This code uses f-strings and requires Python 3.6 or higher.  
+
+To install packages needed in your virtual environment, use `pip install -r requirements.txt`
+
