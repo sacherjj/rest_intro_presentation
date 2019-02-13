@@ -28,6 +28,7 @@ class Meeting:
 
 def get_meeting(meeting_date: str) -> Optional[Meeting]:
     response = requests.get(f'{URL}/{meeting_date}')
+    print(response.text)
     if response.status_code == 404:
         return None
     return Meeting.from_dict(response.json())
@@ -35,12 +36,15 @@ def get_meeting(meeting_date: str) -> Optional[Meeting]:
 
 def get_meetings() -> List[Meeting]:
     response = requests.get(URL)
+    print(response.headers)
+    print(response.text)
     body = response.json()
     return [Meeting.from_dict(mtg) for mtg in body['meetings']]
 
 
 def post_meeting(meeting: Meeting):
     response = requests.post(URL, json=meeting.to_dict())
+    print(response.text)
     body = response.json()
     if response.status_code == 400:
         raise Exception(body["message"])
@@ -49,12 +53,14 @@ def post_meeting(meeting: Meeting):
 def put_meeting(meeting: Meeting):
     response = requests.put(f'{URL}/{meeting.meeting_date}',
                             json=meeting.to_dict())
+    print(response.text)
     if response.status_code == 404:
         raise Exception(response.json()['message'])
 
 
 def delete_meeting(meeting_date: str):
     response = requests.delete(f'{URL}/{meeting_date}')
+    print(response.text)
     if response.status_code == 404:
         raise Exception(response.json()['message'])
 
