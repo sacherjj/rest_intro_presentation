@@ -8,7 +8,7 @@ This presentation was put together for the 2019-02-12 IndyPy meeting Python Begi
 
 The code demonstration walks through the code in this repo.  
 
-I will link the YouTube video here when it is released.
+[YouTube video of presentation.](https://www.youtube.com/watch?v=RdEgRJcy-ww)
 
 ## Source Code
 
